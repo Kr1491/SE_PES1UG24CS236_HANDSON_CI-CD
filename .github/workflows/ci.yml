@@ -1,25 +1,27 @@
 on:
-push:
-branches: [ "main" ]
-pull
-_
-request:
-branches: [ "main" ]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
 jobs:
-build-and-test:
-runs-on: ubuntu-latest
-steps:
-# Step 1: Download repo code onto runner
-- name: Checkout Code
-uses: actions/checkout@v4
-# Step 2: Install compiler and build tools
-- name: Install Build Tools
-run: |
-sudo apt-get update
-sudo apt-get install -y gcc make
-# Step 3: Compile main application
-- name: Compile Application
-run: make all
-# Step 4: Run test suite (CI Check)
-- name: Run Test Cases
-run: make test
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Download repo code onto runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Install compiler and build tools
+      - name: Install Build Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make
+
+      # Step 3: Compile main application
+      - name: Compile Application
+        run: make all
+
+      # Step 4: Run test suite (CI Check)
+      - name: Run Test Cases
+        run: make test
